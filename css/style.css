@@ -567,6 +567,7 @@ main#site {
   aspect-ratio: 1 / 1;
   touch-action: none;
   overflow: visible;
+  pointer-events: all;
 }
 .puzzle-guide {
   fill: none;
