@@ -359,29 +359,29 @@
     }
   }
 
-  // Each bite gets a few small, subtle tooth-mark bumps sitting right on
-  // its rim (mostly flush, just barely poking past the edge) so the
-  // boundary reads as an actual bite instead of a perfectly smooth hole
-  // -- kept small and few so it doesn't turn into a ring of fangs.
-  const TOOTH_COUNT = 6;
-  const TOOTH_RADIUS = 13;
-  const TOOTH_DIST = BITE_RADIUS * 0.94;
+  // A cookie bite isn't one circle -- it's a cluster of a few big
+  // overlapping round lobes (the reference: one main scoop plus two
+  // smaller ones tucked into it), which is what actually reads as
+  // "bitten" instead of "hole punched out". Same cluster shape at every
+  // spot, just scaled off BITE_RADIUS.
+  const BITE_LOBES = [
+    { dx: 0, dy: 0, scale: 1 },
+    { dx: 0.55, dy: -0.42, scale: 0.62 },
+    { dx: -0.5, dy: 0.45, scale: 0.55 }
+  ];
 
   function circleLayer(px, py, r) {
     return `radial-gradient(circle at ${px} ${py}, transparent ${r}px, black ${r + 1}px)`;
   }
 
   function biteLayersFor(spot) {
-    const layers = [circleLayer(`${spot.x}%`, `${spot.y}%`, BITE_RADIUS)];
-    for (let i = 0; i < TOOTH_COUNT; i++) {
-      const angle = (i / TOOTH_COUNT) * Math.PI * 2;
-      const dx = Math.cos(angle) * TOOTH_DIST;
-      const dy = Math.sin(angle) * TOOTH_DIST;
+    return BITE_LOBES.map((lobe) => {
+      const dx = lobe.dx * BITE_RADIUS;
+      const dy = lobe.dy * BITE_RADIUS;
       const px = dx ? `calc(${spot.x}% + ${dx.toFixed(1)}px)` : `${spot.x}%`;
       const py = dy ? `calc(${spot.y}% + ${dy.toFixed(1)}px)` : `${spot.y}%`;
-      layers.push(circleLayer(px, py, TOOTH_RADIUS));
-    }
-    return layers;
+      return circleLayer(px, py, BITE_RADIUS * lobe.scale);
+    });
   }
 
   function applyBiteMask() {

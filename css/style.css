@@ -88,7 +88,12 @@ main#site {
   color: var(--gold-soft);
   text-shadow: 0 0 18px rgba(244, 199, 107, 0.55), 0 0 46px rgba(255, 158, 203, 0.35);
   animation: glowPulse 4.5s ease-in-out infinite;
-  line-height: 1.05;
+  line-height: 1.15;
+}
+#landing .glow-title {
+  font-size: clamp(1.9rem, 9vw, 5rem);
+  width: 100%;
+  overflow-wrap: break-word;
 }
 .glow-title.small { font-size: clamp(2.4rem, 10vw, 4rem); }
 
@@ -152,6 +157,34 @@ main#site {
 }
 .magic-btn:active { transform: scale(0.96); }
 .magic-btn:hover { transform: translateY(-2px); box-shadow: 0 0 55px rgba(244, 199, 107, 0.4); }
+
+.heart-btn {
+  margin-top: 2.5rem;
+  width: clamp(4.5rem, 16vw, 6rem);
+  height: clamp(4.5rem, 16vw, 6rem);
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  transition: transform 0.25s ease;
+}
+.heart-icon {
+  width: 100%;
+  height: 100%;
+  fill: var(--pink-deep);
+  filter: drop-shadow(0 0 12px rgba(255, 111, 165, 0.75)) drop-shadow(0 0 30px rgba(244, 199, 107, 0.45));
+  animation: heartPulse 1.8s ease-in-out infinite;
+}
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 12px rgba(255, 111, 165, 0.75)) drop-shadow(0 0 30px rgba(244, 199, 107, 0.45)); }
+  50% { transform: scale(1.08); filter: drop-shadow(0 0 22px rgba(255, 111, 165, 0.95)) drop-shadow(0 0 46px rgba(244, 199, 107, 0.65)); }
+}
+.heart-btn:active { transform: scale(0.9); }
+.heart-btn:hover .heart-icon { animation-duration: 0.9s; }
 
 .ghost-btn {
   font-family: 'Quicksand', sans-serif;

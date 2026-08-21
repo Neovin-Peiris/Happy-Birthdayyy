@@ -53,9 +53,10 @@ Everything you'll want to change lives in `index.html`, marked with
   fallback if the mic is denied or unavailable.
 - Once every candle is out, confetti fires, a "Tap the cake. Take a
   bite." label floats above it, and the whole cake becomes tappable.
-  Tapping it takes six clean, same-sized circular bites (like a bite out
-  of a cookie — no jagged teeth) that snake across the cake starting at
-  the top-right, until every part of it has been swept. Once it's gone,
+  Tapping it takes six same-sized bites — each one a cluster of a few
+  overlapping round lobes (like an actual bite out of a cookie, not a
+  clean hole-punch circle) — that snake across the cake starting at the
+  top-right, until every part of it has been swept. Once it's gone,
   a wax-sealed envelope appears on the plate. Tapping
   the envelope opens a small puzzle: trace the
   heart-shaped pattern of dots to crack the seal and open the letter
