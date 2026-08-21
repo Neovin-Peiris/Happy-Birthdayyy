@@ -39,6 +39,26 @@ main#site {
   height: 100dvh;
 }
 
+/* ===================== Scrollbars ===================== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--pink-deep) transparent;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold), var(--pink-deep));
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--gold), var(--pink));
+}
+
 .screen[hidden] {
   display: none;
 }
@@ -599,6 +619,10 @@ main#site {
   border: none;
   box-shadow: none;
   padding: 0.25rem 0 0;
+}
+.letter-exit-btn {
+  display: block;
+  margin: 1.75rem auto 0;
 }
 
 /* ===================== Letter ===================== */

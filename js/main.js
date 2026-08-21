@@ -570,6 +570,17 @@
   letterClose.addEventListener('click', () => { letterModal.hidden = true; });
   rereadBtn.addEventListener('click', () => { letterModal.hidden = false; });
 
+  document.getElementById('exit-btn').addEventListener('click', () => {
+    letterModal.hidden = true;
+    relightAll();
+    site.scrollTo({ top: 0 });
+    site.setAttribute('hidden', '');
+    landing.removeAttribute('hidden');
+    landing.classList.add('active');
+    enterBtn.classList.remove('popped');
+    enterBtn.disabled = false;
+  });
+
   function resetSliceStage() {
     biteIndex = 0;
     canEat = false;
