@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+<title>Happy 25th, My Love</title>
+<meta name="theme-color" content="#0a0620" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div id="floating-hearts"></div>
+
+<!-- ============ LANDING ============ -->
+<section id="landing" class="screen active">
+  <div class="landing-inner">
+    <p class="eyebrow">a highly unauthorized production for</p>
+    <h1 class="glow-title">My Love</h1>
+    <p class="tagline">
+      Twenty-five years of existing, roughly a third of them spent making my life
+      unreasonably better. <span class="wink">Proceed with an open heart.</span>
+    </p>
+    <button id="enter-btn" class="magic-btn">
+      <span>Tap to Begin, Babyyy</span>
+    </button>
+    <p class="fine-print">(there will be candles. try not to be dramatic about it.)</p>
+  </div>
+</section>
+
+<main id="site" hidden>
+
+  <!-- ============ CAKE / CANDLES ============ -->
+  <section id="cake-section" class="screen">
+    <h2 class="section-title">Make a Wish, Babyyy</h2>
+    <p class="section-sub">
+      Yes, even the unrealistic ones. I'll allow it. Just this once. It's your birthday.
+    </p>
+
+    <div class="cake-stage">
+      <div class="cake" id="cake">
+        <div class="candles-row" id="candles-row"><!-- 5 candles injected by JS --></div>
+        <div class="cake-body" id="cake-body" aria-label="tap to take a bite">
+          <svg class="cake-illustration" viewBox="0 38 220 172" aria-hidden="true">
+            <defs>
+              <linearGradient id="gradTop" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#fff6e6"/>
+                <stop offset="55%" stop-color="#f6e7c4"/>
+                <stop offset="100%" stop-color="#d9c48f"/>
+              </linearGradient>
+              <linearGradient id="gradMid" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#ffd7e8"/>
+                <stop offset="55%" stop-color="#ffb8d9"/>
+                <stop offset="100%" stop-color="#f77fb0"/>
+              </linearGradient>
+              <linearGradient id="gradBase" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#e7d3ff"/>
+                <stop offset="55%" stop-color="#cbb0ff"/>
+                <stop offset="100%" stop-color="#a98aef"/>
+              </linearGradient>
+            </defs>
+            <g id="tierBase" class="cake-tier-group">
+              <rect x="8" y="150" width="204" height="56" rx="16" fill="url(#gradBase)" stroke="rgba(60,30,70,0.12)"/>
+              <rect x="14" y="181" width="192" height="4" rx="2" fill="#ffffff" fill-opacity="0.4"/>
+            </g>
+            <g id="tierMid" class="cake-tier-group">
+              <rect x="24" y="100" width="172" height="52" rx="14" fill="url(#gradMid)" stroke="rgba(60,30,70,0.12)"/>
+              <rect x="30" y="129" width="160" height="4" rx="2" fill="#ffffff" fill-opacity="0.4"/>
+            </g>
+            <g id="tierTop" class="cake-tier-group">
+              <rect x="40" y="54" width="140" height="48" rx="12" fill="url(#gradTop)" stroke="rgba(60,30,70,0.12)"/>
+              <rect x="46" y="81" width="128" height="4" rx="2" fill="#ffffff" fill-opacity="0.4"/>
+              <g class="sprinkles">
+                <rect x="58" y="64" width="3" height="8" rx="1.5" fill="#ff6fa5" transform="rotate(20 59.5 68)"/>
+                <rect x="150" y="66" width="3" height="8" rx="1.5" fill="#c9b6ff" transform="rotate(-15 151.5 70)"/>
+                <rect x="90" y="89" width="3" height="8" rx="1.5" fill="#f4c76b" transform="rotate(10 91.5 93)"/>
+                <rect x="122" y="91" width="3" height="8" rx="1.5" fill="#ff9ecb" transform="rotate(-25 123.5 95)"/>
+                <circle cx="72" cy="91" r="2.2" fill="#f4c76b"/>
+                <circle cx="160" cy="89" r="2.2" fill="#ff6fa5"/>
+                <circle cx="106" cy="65" r="2.2" fill="#c9b6ff"/>
+              </g>
+            </g>
+            <path id="cakeFrosting" fill="url(#gradTop)" d="
+              M40,58
+              C45,40 55,40 60,58
+              C65,40 75,40 80,58
+              C85,40 95,40 100,58
+              C105,40 115,40 120,58
+              C125,40 135,40 140,58
+              C145,40 155,40 160,58
+              C165,44 175,44 180,58
+              L180,74 L40,74 Z
+            "/>
+            <path class="cake-frosting-drip" fill="url(#gradTop)" d="M54,58 Q60,86 66,58 Z"/>
+            <path class="cake-frosting-drip" fill="url(#gradTop)" d="M134,58 Q140,80 146,58 Z"/>
+          </svg>
+        </div>
+        <div class="envelope" id="envelope" hidden aria-label="tap to open the sealed envelope">
+          <div class="envelope-flap"></div>
+          <div class="envelope-body"></div>
+          <div class="envelope-seal">❤</div>
+        </div>
+        <div class="cake-plate"></div>
+        <p class="slice-status" id="slice-status" hidden>Tap the cake. Take a bite.</p>
+      </div>
+    </div>
+
+    <div class="blow-controls">
+      <p id="blow-status" class="blow-status">Blow into the mic like you mean it.</p>
+      <div class="blow-buttons">
+        <button id="mic-btn" class="ghost-btn">🎤 Let Me Blow (mic)</button>
+        <button id="swipe-hint-btn" class="ghost-btn">👆 Too Shy? Swipe Instead</button>
+        <button id="relight-btn" class="ghost-btn" hidden>🔥 Relight, I Wasn't Ready</button>
+      </div>
+      <p class="swipe-instructions" id="swipe-instructions" hidden>
+        Swipe across the candles like you're actually blowing. Commitment issues not allowed.
+      </p>
+    </div>
+
+    <div class="eat-stage" id="eat-stage" hidden>
+      <button id="reread-btn" class="ghost-btn" hidden>💌 Read It Again</button>
+    </div>
+  </section>
+
+  <!-- ============ CLOSING ============ -->
+  <section id="closing-section" class="screen">
+    <div class="closing-inner">
+      <p class="closing-eyebrow">that's a wrap</p>
+      <h2 class="glow-title small">Happy 25th</h2>
+      <p class="closing-text">
+        Here's to everything ridiculous, wonderful, and yours that comes next.
+        I love you, babyyy. Now go eat some actual cake — this one's just pixels.
+      </p>
+      <button id="replay-btn" class="magic-btn">
+        <span>Do It All Again</span>
+      </button>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ HEART-TRACE PUZZLE MODAL ============ -->
+<div class="modal-overlay" id="puzzle-modal" hidden>
+  <div class="modal-card puzzle-card">
+    <button class="modal-close" id="puzzle-close" aria-label="close">×</button>
+    <h3 class="modal-title">Trace the Seal</h3>
+    <p class="modal-sub" id="puzzle-status">Start at the top and trace the whole heart, love.</p>
+    <svg id="puzzle-svg" viewBox="0 0 200 200" class="puzzle-svg" touch-action="none">
+      <polyline class="puzzle-guide"
+        points="100,79 114,56 158,61 158,108 114,150 100,171 86,150 42,108 42,61 86,56 100,79" />
+      <polyline class="puzzle-trace" id="puzzle-trace" points="" />
+      <text x="100" y="103" text-anchor="middle" class="puzzle-start-label" id="puzzle-start-label">start here ↑</text>
+      <circle class="puzzle-dot start-dot" data-index="0" cx="100" cy="79" r="10"></circle>
+      <circle class="puzzle-dot" data-index="1" cx="114" cy="56" r="10"></circle>
+      <circle class="puzzle-dot" data-index="2" cx="158" cy="61" r="10"></circle>
+      <circle class="puzzle-dot" data-index="3" cx="158" cy="108" r="10"></circle>
+      <circle class="puzzle-dot" data-index="4" cx="114" cy="150" r="10"></circle>
+      <circle class="puzzle-dot" data-index="5" cx="100" cy="171" r="10"></circle>
+      <circle class="puzzle-dot" data-index="6" cx="86" cy="150" r="10"></circle>
+      <circle class="puzzle-dot" data-index="7" cx="42" cy="108" r="10"></circle>
+      <circle class="puzzle-dot" data-index="8" cx="42" cy="61" r="10"></circle>
+      <circle class="puzzle-dot" data-index="9" cx="86" cy="56" r="10"></circle>
+    </svg>
+  </div>
+</div>
+
+<!-- ============ LETTER MODAL ============ -->
+<div class="modal-overlay" id="letter-modal" hidden>
+  <div class="modal-card letter-card">
+    <button class="modal-close" id="letter-close" aria-label="close">×</button>
+    <div class="letter-paper">
+      <!-- EDIT: this is the love letter text, edit freely -->
+      <p>My love,</p>
+      <p>
+        Twenty-five looks incredible on you — not that thirty won't, or forty, or any
+        number after it, because I've quietly signed up for all of them. I'm not
+        always great at saying the big things out loud, so I'm saying them here instead,
+        where I had time to edit out the cringe. Most of it. Some cringe is load-bearing.
+      </p>
+      <p>
+        You are, annoyingly, the best thing that has happened to me — annoying because
+        it makes it very hard to tease you properly when I'm also this obsessed. Every
+        ordinary day gets better just because you're in it, and every plan I make for
+        the future has you standing right in the middle of it, probably rolling your
+        eyes at something I just said.
+      </p>
+      <p>
+        So happy birthday, babyyy. Here's to being impossibly lucky, to more inside
+        jokes than any two people should be allowed to have, and to loving you louder
+        every single year.
+      </p>
+      <p class="letter-sign">Yours, completely (and a little dramatically) — always.</p>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
