@@ -48,11 +48,12 @@ Everything you'll want to change lives in `index.html`, marked with
   wants to retry), and listens for a sustained loud/breathy sound (a
   real blow) to extinguish all remaining candles in a wave. Needs
   `http://localhost` or `https://` — won't work over `file://`.
-- **👆 Too Shy? Swipe Instead** enables a swipe/drag gesture across the
-  cake — works everywhere, no permissions needed, and is the automatic
-  fallback if the mic is denied or unavailable.
+- A swipe/drag gesture across the cake also extinguishes the candles —
+  works everywhere, no permissions needed, and is the silent automatic
+  fallback if the mic is denied or unavailable (there's no dedicated
+  button for it; it's just always listening for the gesture).
 - Once every candle is out, confetti fires, a "Tap the cake. Take a
-  bite." label floats above it, and the whole cake becomes tappable.
+  bite." label appears above it, and the whole cake becomes tappable.
   Tapping it takes six same-sized bites — each one a cluster of a few
   overlapping round lobes (like an actual bite out of a cookie, not a
   clean hole-punch circle) — that snake across the cake starting at the
@@ -63,8 +64,10 @@ Everything you'll want to change lives in `index.html`, marked with
   overlay — the starting dot is marked (pink, pulsing, labeled "start
   here") so it's obvious where to begin. Once unlocked, a **💌 Read It
   Again** button lets her reopen the letter without redoing the puzzle.
-  Hit **Relight** to reset the whole ritual (candles, cake, envelope,
-  and letter lock) and do it all again.
+- There's no dedicated relight button anymore — **Do It All Again** on
+  the closing screen both resets the whole ritual (candles, cake,
+  envelope, and letter lock) and scrolls back to the top, so a full
+  redo only lives at the very end.
 
 ## Deploying (free, in a few minutes)
 

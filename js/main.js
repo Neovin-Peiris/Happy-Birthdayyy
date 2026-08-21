@@ -52,7 +52,7 @@
 
   /* ===================== Floating hearts ===================== */
   const heartsLayer = document.getElementById('floating-hearts');
-  const heartGlyphs = ['💗', '💫', '✨', '💕'];
+  const heartGlyphs = ['💗', '💕', '💖', '❤️', '💗', '💕'];
 
   function spawnHeart(x) {
     if (reduceMotion) return;
@@ -67,12 +67,41 @@
     el.addEventListener('animationend', () => el.remove());
   }
 
-  setInterval(() => spawnHeart(), 2600);
+  setInterval(() => spawnHeart(), 100);
 
   document.addEventListener('click', (e) => {
     if (e.target.closest('button, a')) return;
     spawnHeart(e.clientX);
   });
+
+  const burstGlyphs = ['💗', '💕', '💖', '✨', '💫', '🎉'];
+
+  function spawnBurst(cx, cy) {
+    if (reduceMotion) { spawnHeart(cx); return; }
+    const count = 20;
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('span');
+      el.className = 'burst-particle';
+      el.textContent = burstGlyphs[Math.floor(Math.random() * burstGlyphs.length)];
+      const angle = (Math.PI * 2 * i) / count + (Math.random() * 0.5 - 0.25);
+      const dist = 90 + Math.random() * 160;
+      el.style.left = cx + 'px';
+      el.style.top = cy + 'px';
+      el.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+      el.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+      el.style.setProperty('--rot', (Math.random() * 60 - 30) + 'deg');
+      el.style.fontSize = (1 + Math.random() * 0.9) + 'rem';
+      el.style.animationDuration = (0.65 + Math.random() * 0.5) + 's';
+      heartsLayer.appendChild(el);
+      el.addEventListener('animationend', () => el.remove());
+    }
+    const ring = document.createElement('span');
+    ring.className = 'burst-ring';
+    ring.style.left = cx + 'px';
+    ring.style.top = cy + 'px';
+    heartsLayer.appendChild(ring);
+    ring.addEventListener('animationend', () => ring.remove());
+  }
 
   /* ===================== Landing -> Site ===================== */
   const landing = document.getElementById('landing');
@@ -80,25 +109,28 @@
   const enterBtn = document.getElementById('enter-btn');
 
   enterBtn.addEventListener('click', () => {
-    landing.classList.remove('active');
-    landing.setAttribute('hidden', '');
-    site.removeAttribute('hidden');
-    site.scrollTo({ top: 0 });
-    for (let i = 0; i < 6; i++) setTimeout(() => spawnHeart(), i * 150);
-    startMic();
-  });
+    const rect = enterBtn.getBoundingClientRect();
+    spawnBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    enterBtn.classList.add('popped');
+    enterBtn.disabled = true;
 
-  document.getElementById('replay-btn').addEventListener('click', () => {
-    site.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    setTimeout(() => {
+      landing.classList.remove('active');
+      landing.setAttribute('hidden', '');
+      site.removeAttribute('hidden');
+      site.scrollTo({ top: 0 });
+      for (let i = 0; i < 6; i++) setTimeout(() => spawnHeart(), i * 150);
+      startMic();
+    }, reduceMotion ? 0 : 500);
   });
 
   /* ===================== Candles ===================== */
   const candlesRow = document.getElementById('candles-row');
   const blowStatus = document.getElementById('blow-status');
-  const relightBtn = document.getElementById('relight-btn');
   const micBtn = document.getElementById('mic-btn');
-  const swipeHintBtn = document.getElementById('swipe-hint-btn');
-  const swipeInstructions = document.getElementById('swipe-instructions');
+  const blowControls = document.getElementById('blow-controls');
+  const sectionTitle = document.getElementById('section-title');
+  const sectionSub = document.getElementById('section-sub');
   const cakeStage = document.querySelector('.cake-stage');
   const cakeEl = document.getElementById('cake');
   const eatStage = document.getElementById('eat-stage');
@@ -199,34 +231,41 @@
     candlesRow.querySelectorAll('.candle').forEach((c) => {
       c.classList.remove('out', 'puff');
     });
-    relightBtn.hidden = true;
     blowStatus.textContent = 'Blow into the mic like you mean it.';
+    blowControls.hidden = false;
+    micBtn.classList.remove('active-mode');
+    micBtn.textContent = '🎤 Let Me Blow (mic)';
+    sectionSub.hidden = true;
+    sectionTitle.hidden = false;
     resetSliceStage();
+    startMic();
   }
-  relightBtn.addEventListener('click', relightAll);
 
   let revealed = false;
   function revealWish() {
     if (revealed) return;
     revealed = true;
     blowStatus.textContent = "That's it, babyyy. Wish made. No refunds.";
-    relightBtn.hidden = false;
     eatStage.hidden = false;
     sliceStatus.hidden = false;
     candlesRow.classList.add('consumed');
     canEat = true;
     fireConfetti();
+    stopMic();
+    // "Make a Wish" gives way to the message underneath it, and the mic
+    // button/status (no longer relevant now that blowing is done) go away.
+    // Reflow-and-reapply the fade class so it replays on every relight,
+    // not just the first time.
+    sectionTitle.hidden = true;
+    sectionSub.hidden = false;
+    sectionSub.classList.remove('reveal-fade');
+    void sectionSub.offsetWidth;
+    sectionSub.classList.add('reveal-fade');
+    setTimeout(() => { blowControls.hidden = true; }, 900);
     setTimeout(() => { revealed = false; }, 800);
   }
 
-  /* ---- Swipe-to-blow ---- */
-  let swipeMode = false;
-  swipeHintBtn.addEventListener('click', () => {
-    swipeMode = !swipeMode;
-    swipeInstructions.hidden = !swipeMode;
-    swipeHintBtn.classList.toggle('active-mode', swipeMode);
-  });
-
+  /* ---- Swipe-to-blow (always available, no toggle needed) ---- */
   let dragStartX = null, dragTraveled = 0;
   function onDragStart(x) { dragStartX = x; dragTraveled = 0; }
   function onDragMove(x) {
@@ -254,9 +293,7 @@
   async function startMic() {
     if (micActive) return;
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      blowStatus.textContent = "Mic's not available here. Swipe it is, babyyy.";
-      swipeMode = true;
-      swipeInstructions.hidden = false;
+      blowStatus.textContent = "Mic's not available here. Swipe across the candles instead, babyyy.";
       return;
     }
     try {
@@ -273,9 +310,7 @@
       blowStatus.textContent = 'Go on then. Blow.';
       monitorMic();
     } catch (err) {
-      blowStatus.textContent = "Mic said no. Rude. Try swiping instead.";
-      swipeMode = true;
-      swipeInstructions.hidden = false;
+      blowStatus.textContent = "Mic said no. Rude. Swipe across the candles instead.";
     }
   }
 
@@ -457,7 +492,7 @@
     puzzleTrace.setAttribute('points', '');
     puzzleDots.forEach((d) => d.classList.remove('hit'));
     puzzleDots[0].classList.add('start-dot');
-    puzzleStatus.textContent = 'Start at the top and trace the whole heart, love.';
+    puzzleStatus.textContent = '💗💕💫✨💖💗💕💫✨💖💗💕💫✨💖💗💕💫✨💖';
   }
 
   function openPuzzle() {

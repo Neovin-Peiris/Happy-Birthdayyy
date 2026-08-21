@@ -24,7 +24,6 @@
         <path d="M16 28.5C8 22.5 1 16.6 1 9.6 1 4.9 4.7 1.2 9.3 1.2c2.6 0 5.1 1.2 6.7 3.2 1.6-2 4.1-3.2 6.7-3.2 4.6 0 8.3 3.7 8.3 8.4 0 7-7 12.9-15 18.9Z"/>
       </svg>
     </button>
-    <p class="fine-print">(there will be candles. try not to be dramatic about it.)</p>
   </div>
 </section>
 
@@ -32,10 +31,13 @@
 
   <!-- ============ CAKE / CANDLES ============ -->
   <section id="cake-section" class="screen">
-    <h2 class="section-title">Make a Wish, Babyyy</h2>
-    <p class="section-sub">
-      Yes, even the unrealistic ones. I'll allow it. Just this once. It's your birthday.
+    <h2 class="section-title" id="section-title">Make a Wish, Babyyy</h2>
+    <p class="section-sub" id="section-sub" hidden>
+      I couldn't be there to celebrate with you in person, so I built you
+      this instead — it's got all my love in it, from wherever I am right now.
     </p>
+
+    <p class="slice-status" id="slice-status" hidden>Tap the cake. Take a bite.</p>
 
     <div class="cake-stage">
       <div class="cake" id="cake">
@@ -101,20 +103,14 @@
           <div class="envelope-seal">❤</div>
         </div>
         <div class="cake-plate"></div>
-        <p class="slice-status" id="slice-status" hidden>Tap the cake. Take a bite.</p>
       </div>
     </div>
 
-    <div class="blow-controls">
+    <div class="blow-controls" id="blow-controls">
       <p id="blow-status" class="blow-status">Blow into the mic like you mean it.</p>
       <div class="blow-buttons">
         <button id="mic-btn" class="ghost-btn">🎤 Let Me Blow (mic)</button>
-        <button id="swipe-hint-btn" class="ghost-btn">👆 Too Shy? Swipe Instead</button>
-        <button id="relight-btn" class="ghost-btn" hidden>🔥 Relight, I Wasn't Ready</button>
       </div>
-      <p class="swipe-instructions" id="swipe-instructions" hidden>
-        Swipe across the candles like you're actually blowing. Commitment issues not allowed.
-      </p>
     </div>
 
     <div class="eat-stage" id="eat-stage" hidden>
@@ -122,20 +118,6 @@
     </div>
   </section>
 
-  <!-- ============ CLOSING ============ -->
-  <section id="closing-section" class="screen">
-    <div class="closing-inner">
-      <p class="closing-eyebrow">that's a wrap</p>
-      <h2 class="glow-title small">Happy 25th</h2>
-      <p class="closing-text">
-        Here's to everything ridiculous, wonderful, and yours that comes next.
-        I love you, babyyy. Now go eat some actual cake — this one's just pixels.
-      </p>
-      <button id="replay-btn" class="magic-btn">
-        <span>Do It All Again</span>
-      </button>
-    </div>
-  </section>
 
 </main>
 
@@ -143,8 +125,8 @@
 <div class="modal-overlay" id="puzzle-modal" hidden>
   <div class="modal-card puzzle-card">
     <button class="modal-close" id="puzzle-close" aria-label="close">×</button>
-    <h3 class="modal-title">Trace the Seal</h3>
-    <p class="modal-sub" id="puzzle-status">Start at the top and trace the whole heart, love.</p>
+    <h3 class="modal-title">Ummmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</h3>
+    <p class="modal-sub" id="puzzle-status">💗💕💫✨💖💗💕💫✨💖💗💕💫✨💖💗💕💫✨💖</p>
     <svg id="puzzle-svg" viewBox="0 0 200 200" class="puzzle-svg" touch-action="none">
       <polyline class="puzzle-guide"
         points="100,79 114,56 158,61 158,108 114,150 100,171 86,150 42,108 42,61 86,56 100,79" />
@@ -172,24 +154,40 @@
       <!-- EDIT: this is the love letter text, edit freely -->
       <p>My love,</p>
       <p>
-        Twenty-five looks incredible on you — not that thirty won't, or forty, or any
-        number after it, because I've quietly signed up for all of them. I'm not
-        always great at saying the big things out loud, so I'm saying them here instead,
-        where I had time to edit out the cringe. Most of it. Some cringe is load-bearing.
+        It's only been since December — eight-ish months, if we're counting, and I
+        absolutely am — but you've somehow become impossible to imagine life without
+        in record time. That's very inconvenient of you. I had plans. Then you smiled
+        at me once and every single one of them changed.
       </p>
       <p>
-        You are, annoyingly, the best thing that has happened to me — annoying because
-        it makes it very hard to tease you properly when I'm also this obsessed. Every
-        ordinary day gets better just because you're in it, and every plan I make for
-        the future has you standing right in the middle of it, probably rolling your
-        eyes at something I just said.
+        I love you for the schedule that would break anyone else — days, nights,
+        back-to-back shifts, running on caffeine and pure stubbornness — and for still
+        finding a way to show up for me anyway, even on the days you're running on
+        fumes. You spend your hours taking care of everyone else, and somehow there's
+        still room left over for me. I don't take that for granted, not for a second.
       </p>
       <p>
-        So happy birthday, babyyy. Here's to being impossibly lucky, to more inside
-        jokes than any two people should be allowed to have, and to loving you louder
-        every single year.
+        I love your smile like it's something I personally achieved. I love your eyes,
+        and the specific way they narrow right before you say something that's about
+        to get me. I love the way you talk to me — teasing one second, soft the next,
+        like you can't decide which version I deserve so you just give me both. I love
+        that you bite me. Playfully. On purpose. Like it's a language you invented just
+        for us. And I love your laugh most of all — the real one, not the polite one,
+        the one I have to actually earn.
       </p>
-      <p class="letter-sign">Yours, completely (and a little dramatically) — always.</p>
+      <p>
+        That's not even close to the full list, and I'm not going to pretend I could
+        finish it here. Just know there's a lot more where that came from — enough to
+        keep me writing for a very long time.
+      </p>
+      <p>
+        Twenty-five looks incredible on you, by the way. If you're reading this
+        mid-shift, between patients, or during the two minutes you get to sit down
+        today — happy birthday, babyyy. Drink some water, steal a snack, take the win.
+        I'm very proud of you and very in love with you, and I'll be here when you
+        clock out.
+      </p>
+      <p class="letter-sign">Yours, completely — always.</p>
     </div>
   </div>
 </div>
